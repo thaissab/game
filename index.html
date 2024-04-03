@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jogo de Clique</title>
+    <style>
+        #target {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            background-color: rgb(68, 109, 241);
+            font-size: 150%;
+            cursor: pointer;
+        }
+        #button{
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            background-color: rgb(68, 109, 241);
+            font-size: 150%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quer namorar comigo?</h1>
+    <p style="right: 100;">Pontuação: <span id="score">0</span></p>
+    <div id="target">Sim</div>
+    <div id="button" href=""> Não</div>
+
+    <script>
+        var score = 0;
+
+        function updateScore() {
+            document.getElementById("score").textContent = score;
+        }
+
+        function getRandomPosition() {
+            var screenWidth = window.innerWidth;
+            var screenHeight = window.innerHeight;
+            var targetWidth = document.getElementById("target").offsetWidth;
+            var targetHeight = document.getElementById("target").offsetHeight;
+
+            var maxX = screenWidth - targetWidth;
+            var maxY = screenHeight - targetHeight;
+
+            var randomX = Math.floor(Math.random() * maxX);
+            var randomY = Math.floor(Math.random() * maxY);
+
+            return [randomX, randomY];
+        }
+
+        function moveTarget() {
+            var target = document.getElementById("target");
+            var position = getRandomPosition();
+            target.style.left = position[0] + "px";
+            target.style.top = position[1] + "px";
+        }
+
+        function increaseScore() {
+            score += 1;
+            updateScore();
+            moveTarget();
+        }
+
+        document.getElementById("target").addEventListener("click", increaseScore);
+        updateScore();
+        moveTarget();
+    </script>
+</body>
+</html>
